@@ -1,0 +1,30 @@
+version: "3.9"
+
+networks:
+  api-network:
+    driver: bridge
+
+services:
+  teste-postgres-compose:
+    image: postgres
+    environment:
+      POSTGRES_USERNAME: "Postgres"
+      POSTGRES_PASSWORD: "Postgres2019!"
+    ports:
+      - "15432:5432"
+    networks:
+      - api-network
+
+  contrucao-api:
+    build: .
+    environment:
+      DB_HOST: teste-postgres-compose
+      DB_USERNAME: "Postgres"
+      DB_PASSWORD: "Postgres2019!"
+    ports:
+      - "8080:8080"
+    networks:
+      - api-network
+
+    depends_on:
+      - teste-postgres-compose
