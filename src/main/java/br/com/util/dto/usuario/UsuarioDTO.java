@@ -18,10 +18,11 @@ import javax.validation.constraints.NotNull;
 public class UsuarioDTO {
 
     @NotNull
+    @NotBlank
     private String nome;
 
+    @NotBlank
     @NotNull(message = "Nome não pode ser nulo")
-    @NotBlank(message = "Nome obrigatório")
     @Email(message = "E-mail inválido")
     private String email;
 
