@@ -13,6 +13,7 @@ create table usuario (
   nome  varchar(100) not null,
   email varchar(50) not null,
   senha varchar(30) not null,
+  cpf   varchar(12) not null,
 
   primary key (id)
 );
