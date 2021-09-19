@@ -1,5 +1,7 @@
 package br.com.controlador.exceptionhandler;
 
+import br.com.util.exception.CPFException;
+import br.com.util.exception.CadastroExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -71,4 +74,54 @@ public class ApiExceptionHandler  extends ResponseEntityExceptionHandler {
 
         return super.handleExceptionInternal(ex, body, headers, status, request);
     }
+
+    /**
+     * Envia a resposta a partir de exceção lançada se for verficado que o CPF já foi cadastrado
+     *
+     * @param ex
+     * @param request
+     * @return
+     *
+     * @author Jean Varela
+     * data    04/08/2021
+     */
+    @ExceptionHandler(CPFException.class)
+    public ResponseEntity<Object> handleCPFException(CPFException ex, WebRequest request) {
+        String mensagem = messageSource.getMessage(ex.getMessage(),null, LocaleContextHolder.getLocale());
+
+
+        Problema   body = Problema.builder().dataHora(LocalDateTime.now())
+                                            .title("")
+                                            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                            .mensagem(mensagem)
+                                            .build();
+
+        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+    /**
+     * Envia a resposta a partir de exceção lançada se for verificado que um registro existe
+     *
+     * @param ex
+     * @param request
+     * @return
+     *
+     * @author Jean Varela
+     * data    04/08/2021
+     */
+    @ExceptionHandler(CadastroExistenteException.class)
+    public ResponseEntity<Object> handleCadastroExistenteException(CadastroExistenteException ex, WebRequest request) {
+        String mensagem = messageSource.getMessage(ex.getMessage(),null, LocaleContextHolder.getLocale());
+
+
+        Problema   body = Problema.builder().dataHora(LocalDateTime.now())
+                                            .title("")
+                                            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                            .mensagem(mensagem)
+                                            .build();
+
+        return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

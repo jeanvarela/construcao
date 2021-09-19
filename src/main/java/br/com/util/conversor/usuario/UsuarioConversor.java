@@ -2,7 +2,7 @@ package br.com.util.conversor.usuario;
 
 import br.com.modelo.entidade.usuario.Usuario;
 import br.com.util.conversor.IConversor;
-import br.com.util.dto.usario.UsuarioDTO;
+import br.com.util.dto.usuario.UsuarioDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

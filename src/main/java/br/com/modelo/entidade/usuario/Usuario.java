@@ -26,4 +26,7 @@ public class Usuario extends Entidade {
 
     @Column(name = "senha", nullable=false)
     private String senha;
+
+    @Column(name = "cpf", nullable=false)
+    private String cpf;
 }

@@ -43,4 +43,43 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario,Long> {
      */
     @Query(value = "select usuario from Usuario usuario where usuario.email = :email and usuario.senha = :senha")
     Optional<Usuario> pesquisaUsuario(@Param("email") String email, @Param("senha") String senha);
+
+    /**
+     * Recupera usuário por cpf
+     *
+     * @param cpf - Número do CPF
+     *
+     * @return Optional<Usuario> - Objeto optional com o registro do usuário
+     *
+     * @author Jean Varela
+     * data    18/09/2021
+     */
+    @Query(value = "select usuario from Usuario usuario where usuario.cpf = :cpf")
+    Optional<Usuario> pesquisaUsuarioPorCPF(@Param("cpf") String cpf);
+
+    /**
+     * Recupera usuário por nome
+     *
+     * @param nome - Nome do usuário
+     *
+     * @return Optional<Usuario> - Objeto optional com o registro do usuário
+     *
+     * @author Jean Varela
+     * data    18/09/2021
+     */
+    @Query(value = "select usuario from Usuario usuario where usuario.nome = :nome")
+    Optional<Usuario> pesquisaUsuarioPorNome(@Param("nome") String nome);
+
+    /**
+     * Recupera usuário por e-mail
+     *
+     * @param nome - Nome do usuário
+     *
+     * @return Optional<Usuario> - Objeto optional com o registro do usuário
+     *
+     * @author Jean Varela
+     * data    18/09/2021
+     */
+    @Query(value = "select usuario from Usuario usuario where usuario.email = :email")
+    Optional<Usuario> pesquisaUsuarioPorEmail(@Param("email") String email);
 }
