@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 
 /**
  * Classe para representar a entidade usuário
@@ -14,6 +15,7 @@ import javax.persistence.Column;
  */
 @Getter
 @Setter
+@Entity
 public class Usuario extends Entidade {
 
     @Column(name = "nome", nullable=false)
@@ -24,4 +26,7 @@ public class Usuario extends Entidade {
 
     @Column(name = "senha", nullable=false)
     private String senha;
+
+    @Column(name = "cpf", nullable=false)
+    private String cpf;
 }
