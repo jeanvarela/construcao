@@ -1,9 +1,36 @@
-version: '3.5'
-
+version: "3.8"
 services:
+  # Configuração do serviço do banco de dados MySQL
   mysql:
     image: mysql:8.0
+    container_name: databasemysql
+    restart: always
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: construction
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     ports:
       - "3306:3306"
+    volumes:
+      - /home/jeanvarela/Desktop/jean/Projeto/construcao/volumes/mysql:/var/lib/mysql
+
+
+  # Configuração do serviço da aplicação Spring Boot
+#  spring-app:
+#    image: contruction:latest
+#    container_name: spring-app-container
+#    restart: always
+#    depends_on:
+#      - mysql
+#    environment:
+#      # Variáveis de ambiente para a aplicação Spring Boot
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/constructiondb?allowPublicKeyRetrieval=true
+#      SPRING_DATASOURCE_USERNAME: admin
+#      SPRING_DATASOURCE_PASSWORD: admin
+#    ports:
+#      - "8080:8080"
+
+volumes:
+  mysql_data:
+
