@@ -2,6 +2,7 @@ package br.com.application.exception.handle;
 
 import br.com.application.exception.model.Problem;
 import br.com.application.exception.model.ProblemType;
+import br.com.application.exception.types.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -13,10 +14,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +67,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(ex, problem, headers, status, request);
     }
+
+    @ExceptionHandler(value  = { BusinessException.class})
+    protected ResponseEntity<Object> handleConflict(BusinessException ex, WebRequest request) {
+        String message = messageSource.getMessage(ex.getLocalizedMessage(), ex.getParameters(), LocaleContextHolder.getLocale());
+
+        Problem problem = createProblemBuilder(HttpStatus.CONFLICT, ProblemType.DADOS_INVALIDOS, "").userMessage(message)
+                                                                                                             .objects(null)
+                                                                                                             .build();
+
+        return handleExceptionInternal(ex, problem, HttpHeaders.EMPTY, HttpStatus.CONFLICT, request);
+    }
+
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
