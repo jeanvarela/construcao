@@ -39,4 +39,8 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "us_user_type_id")
     private UserType userType;
+
+    @ManyToOne
+    @JoinColumn(name = "us_user_login_id")
+    private UserLogin userLogin;
 }
