@@ -27,6 +27,7 @@ public class CreateCompanyService {
 
     public CompanyTO crateCompany(CompanyTO companyTO, UserTO user){
         checkIfCompanyAlreadyExists(companyTO);
+        this.userService.validateEmailUsed(user.getEmail());
 
         Company company = this.companyEntityMapper.convertToCompany(companyTO);
         Company companySaved =  this.companyRepository.save(company);

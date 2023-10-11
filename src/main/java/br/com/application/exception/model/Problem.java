@@ -18,7 +18,6 @@ public class Problem {
     private LocalDateTime timestamp;
     private String type;
     private String title;
-    private String detail;
     private String userMessage;
     private List<Object> objects;
 

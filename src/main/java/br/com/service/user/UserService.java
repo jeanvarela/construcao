@@ -1,10 +1,9 @@
 package br.com.service.user;
 
-import br.com.repository.entity.Company;
-import br.com.repository.entity.User;
-import br.com.repository.entity.UserType;
+import br.com.repository.entity.*;
 import br.com.repository.UserRepository;
 import br.com.service.model.UserTO;
+import br.com.service.model.enumeration.UserLoginEnum;
 import br.com.service.model.enumeration.UserTypeEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,8 +18,12 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final UserLoginService userLoginService;
+
     public User insertUserConstructor(UserTO userTO, long companyId){
         validateEmailUsed(userTO.getEmail());
+
+        UserLogin userLogin = this.userLoginService.createUserLogin(userTO.getEmail(),userTO.getPassword(), UserLoginEnum.USER.getValue());
 
         UserType userType = UserType.builder()
                 .id(UserTypeEnum.CONSTRUCTOR.getValue())
@@ -32,20 +35,20 @@ public class UserService {
 
         User user = User.builder()
                 .email(userTO.getEmail())
-                .password(userTO.getPassword())
                 .userType(userType)
                 .name(userTO.getName())
                 .company(company)
+                .userLogin(userLogin)
                 .build();
 
        return this.userRepository.save(user);
     }
 
-    private void validateEmailUsed(String email){
+    public void validateEmailUsed(String email){
         Optional<User> user = this.userRepository.findUserByEmail(email);
 
         if (user.isPresent()){
-
+            System.out.println("Ocorreu erro");
         }
     }
 }

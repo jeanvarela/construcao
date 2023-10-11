@@ -20,6 +20,10 @@ create table user_login_type (
   constraint ult_pk primary key (ult_id)
 );
 
+insert into user_login_type (ult_id, ult_name) values (1, "admin");
+insert into user_login_type (ult_id, ult_name) values (2, "user");
+insert into user_login_type (ult_id, ult_name) values (3, "client");
+
 create table user_login (
   ul_id integer AUTO_INCREMENT not null,
   ul_login varchar(50) not null,
@@ -36,6 +40,10 @@ create table user_type (
 
      constraint pk_ut primary key (ut_id)
 );
+
+insert into user_type (ut_id, ut_description) values (1, "master_builder");
+insert into user_type (ut_id, ut_description) values (2, "constructor");
+
 
 create table user (
      us_id integer AUTO_INCREMENT not null,

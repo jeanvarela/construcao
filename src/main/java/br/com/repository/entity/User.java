@@ -29,9 +29,6 @@ public class User {
     @Column(name = "us_email")
     private String email;
 
-    @Column(name = "us_password")
-    private String password;
-
     @ManyToOne
     @JoinColumn(name = "us_company_id")
     private Company company;

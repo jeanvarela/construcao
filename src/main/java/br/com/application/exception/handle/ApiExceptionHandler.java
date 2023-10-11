@@ -109,8 +109,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return Problem.builder()
                 .timestamp(LocalDateTime.now())
                 .status(status.value())
-                .type(problemType.getUri())
-                .title(problemType.getTitle())
-                .detail(detail);
+                .title(problemType.getTitle());
     }
 }

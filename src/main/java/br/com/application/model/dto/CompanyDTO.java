@@ -21,7 +21,6 @@ public class CompanyDTO {
     @Email
     private String email;
 
-    @NotBlank
     private String federalTaxPayerId;
 
     @NotNull
